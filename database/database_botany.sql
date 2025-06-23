@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 19 Jun 2025 pada 10.02
+-- Waktu pembuatan: 23 Jun 2025 pada 11.49
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -33,6 +33,9 @@ CREATE TABLE `courses` (
   `short_description` text NOT NULL,
   `details` text DEFAULT NULL,
   `price` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `author` varchar(100) DEFAULT NULL,
+  `rating` decimal(2,1) DEFAULT 0.0,
+  `participants` int(11) DEFAULT 0,
   `thumbnail_image` varchar(255) DEFAULT 'default.jpg'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -40,10 +43,10 @@ CREATE TABLE `courses` (
 -- Dumping data untuk tabel `courses`
 --
 
-INSERT INTO `courses` (`id`, `title`, `short_description`, `details`, `price`, `thumbnail_image`) VALUES
-(1, 'Hidroponik untuk Pemula', 'Belajar dasar-dasar menanam tanpa menggunakan tanah. Cocok untuk Anda yang ingin memulai hobi berkebun modern di rumah.', 'Dalam kelas ini, Anda akan dibimbing dari nol untuk membangun sistem hidroponik fungsional di rumah. Materi mencakup pengenalan berbagai sistem, cara meracik nutrisi, teknik penyemaian, hingga tips perawatan harian.', 149000.00, 'hidroponik_pemula.svg'),
-(2, 'Seni Merawat Bonsai', 'Kuasai seni kuno dalam membentuk dan merawat bonsai. Pelajari teknik-teknik penting seperti pruning, wiring, dan pemupukan.', 'Bonsai adalah perpaduan antara seni dan hortikultura. Kelas ini akan membawa Anda menyelami dunia bonsai, mulai dari filosofi di baliknya, memilih bakalan prospektif, teknik pengawatan, hingga metode pemupukan dan pemangkasan.', 175000.00, 'merawat_bonsai.svg'),
-(3, 'Berkebun di Lahan Sempit', 'Maksimalkan ruang terbatas Anda menjadi oase hijau yang produktif dengan taman vertikal dan kebun pot.', 'Tidak punya halaman luas bukan berarti tidak bisa berkebun. Kelas ini didedikasikan untuk Anda yang tinggal di lingkungan urban. Pelajari cara cerdas memanfaatkan ruang vertikal, trik memilih pot dan media tanam yang tepat, serta daftar tanaman yang cocok.', 0.00, 'lahan_sempit.svg');
+INSERT INTO `courses` (`id`, `title`, `short_description`, `details`, `price`, `author`, `rating`, `participants`, `thumbnail_image`) VALUES
+(1, 'Hidroponik untuk Pemula', 'Belajar dasar-dasar menanam tanpa menggunakan tanah. Cocok untuk Anda yang ingin memulai hobi berkebun modern di rumah.', 'Dalam kelas ini, Anda akan dibimbing dari nol untuk membangun sistem hidroponik fungsional di rumah. Materi mencakup pengenalan berbagai sistem, cara meracik nutrisi, teknik penyemaian, hingga tips perawatan harian.', 149000.00, 'Galih Tambunan', 4.5, 6071, 'hidroponik_pemula.svg'),
+(2, 'Seni Merawat Bonsai', 'Kuasai seni kuno dalam membentuk dan merawat bonsai. Pelajari teknik-teknik penting seperti pruning, wiring, dan pemupukan.', 'Bonsai adalah perpaduan antara seni dan hortikultura. Kelas ini akan membawa Anda menyelami dunia bonsai, mulai dari filosofi di baliknya, memilih bakalan prospektif, teknik pengawatan, hingga metode pemupukan dan pemangkasan.', 175000.00, 'Siti Lestari', 4.7, 3210, 'merawat_bonsai.svg'),
+(3, 'Berkebun di Lahan Sempit', 'Maksimalkan ruang terbatas Anda menjadi oase hijau yang produktif dengan taman vertikal dan kebun pot.', 'Tidak punya halaman luas bukan berarti tidak bisa berkebun. Kelas ini didedikasikan untuk Anda yang tinggal di lingkungan urban. Pelajari cara cerdas memanfaatkan ruang vertikal, trik memilih pot dan media tanam yang tepat, serta daftar tanaman yang cocok.', 0.00, 'Budi Sanjaya', 4.2, 8954, 'lahan_sempit.svg');
 
 -- --------------------------------------------------------
 
@@ -89,6 +92,7 @@ CREATE TABLE `pendaftar` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `course_id` int(11) NOT NULL,
+  `status_pembayaran` enum('pending','completed','failed') NOT NULL DEFAULT 'pending',
   `enrollment_date` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -96,11 +100,10 @@ CREATE TABLE `pendaftar` (
 -- Dumping data untuk tabel `pendaftar`
 --
 
-INSERT INTO `pendaftar` (`id`, `user_id`, `course_id`, `enrollment_date`) VALUES
-(1, 1, 1, '2025-06-18 04:34:18'),
-(2, 1, 2, '2025-06-18 04:34:18'),
-(3, 2, 1, '2025-06-18 04:34:18'),
-(4, 2, 3, '2025-06-18 04:34:18');
+INSERT INTO `pendaftar` (`id`, `user_id`, `course_id`, `status_pembayaran`, `enrollment_date`) VALUES
+(6, 3, 2, 'pending', '2025-06-23 06:32:17'),
+(7, 3, 1, 'completed', '2025-06-23 08:22:38'),
+(8, 3, 3, 'completed', '2025-06-23 09:43:01');
 
 -- --------------------------------------------------------
 
@@ -114,19 +117,6 @@ CREATE TABLE `progress` (
   `material_id` int(11) NOT NULL,
   `completed_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data untuk tabel `progress`
---
-
-INSERT INTO `progress` (`id`, `enrollment_id`, `material_id`, `completed_at`) VALUES
-(1, 1, 1, '2025-06-18 04:34:18'),
-(2, 1, 2, '2025-06-18 04:34:18'),
-(3, 1, 3, '2025-06-18 04:34:18'),
-(4, 1, 4, '2025-06-18 04:34:18'),
-(5, 2, 5, '2025-06-18 04:34:18'),
-(6, 2, 6, '2025-06-18 04:34:18'),
-(7, 3, 1, '2025-06-18 04:34:18');
 
 -- --------------------------------------------------------
 
@@ -210,7 +200,7 @@ ALTER TABLE `materi`
 -- AUTO_INCREMENT untuk tabel `pendaftar`
 --
 ALTER TABLE `pendaftar`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT untuk tabel `progress`
