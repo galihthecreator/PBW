@@ -61,7 +61,7 @@ function getInitials($name) {
                                     </div>
                                 </li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#">Pembelajaran Saya</a></li>
+                                <li><a class="dropdown-item" href="dashboard.php">Pembelajaran Saya</a></li>
                                 <li><a class="dropdown-item" href="#">Keranjang Saya</a></li>
                                 <li><a class="dropdown-item" href="#">Notifikasi</a></li>
                                 <li><a class="dropdown-item" href="#">Pengaturan Akun</a></li>

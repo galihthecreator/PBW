@@ -65,7 +65,7 @@ include 'templates/header.php';
                         </div>
                     </div>
             <?php
-                } // Akhir dari while loop
+                }
             } else {
                 echo "<div class='col-12'><p class='text-center'>Saat ini belum ada kelas yang tersedia.</p></div>";
             }

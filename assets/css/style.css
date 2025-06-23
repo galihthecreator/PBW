@@ -16,6 +16,7 @@ body {
     background-color: var(--background-color);
 }
 
+/* Navbar */
 .btn-green {
     background-color: var(--primary-color);
     color: var(--text-light);
@@ -48,6 +49,11 @@ body {
     font-size: 1rem;
 }
 
+.navbar.sticky-top {
+    z-index: 1030;
+}
+
+/* Hero-Section */
 .hero-img {
     max-width: 100%;
     border-radius: 50%;
@@ -137,13 +143,74 @@ body {
     border: none;
 }
 
+/* Course Details */
+.course-section {
+    margin-bottom: 2rem;
+}
+
+.course-sticky-card {
+    top: 100px;
+}
+
+.course-content-list .list-group-item {
+    padding: 1rem 0.5rem;
+    border-bottom: 1px solid #eee;
+}
+
+.course-includes-list li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.75rem;
+    color: #555;
+}
+
+.course-includes-list .bi {
+    margin-right: 0.75rem;
+    font-size: 1.2rem;
+    color: var(--primary-color);
+}
+
+/* Dashboard Kelas */
+.course-card-dashboard {
+    border-radius: 1rem;
+    border: 1px solid #e2e8f0;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.course-card-dashboard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+}
+
+.course-card-dashboard .card-img-top {
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    height: 180px;
+    object-fit: cover;
+}
+
+.course-card-dashboard .card-title {
+    font-size: 1.1rem;
+}
+
+.nav-tabs .nav-link.active {
+    font-weight: bold;
+    color: var(--primary-color-darker);
+    border-bottom: 2px solid var(--primary-color-darker);
+}
+
+.nav-tabs .nav-link {
+    border-bottom: 2px solid transparent;
+}
+
+/* Footer */
 .footer-dark {
     background-color: var(--footer-bg);
     color: var(--footer-text);
 }
 
 .footer-dark h6 {
-    color: var(--text-light); /* Warna putih untuk heading */
+    color: var(--text-light);
     margin-bottom: 1rem;
 }
 
@@ -154,7 +221,7 @@ body {
 }
 
 .footer-dark a:hover {
-    color: var(--footer-link-hover); /* Warna putih saat disentuh */
+    color: var(--footer-link-hover);
     text-decoration: underline;
 }
 
@@ -168,5 +235,5 @@ body {
 }
 
 .footer-dark .copyright-text {
-    color: rgba(255, 255, 255, 0.6); /* Warna teks copyright sedikit redup */
+    color: rgba(255, 255, 255, 0.6);
 }
