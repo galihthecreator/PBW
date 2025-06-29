@@ -2,21 +2,31 @@
 :root {
     --primary-color: #0f9d58;
     --primary-color-darker: #2f855a;
-    --background-color: #fffdf5;
+
+    --bg-default: #ffffff;
+    --bg-accent: #fffdf5;
+    
     --text-light: #ffffff;
     --text-dark: #374151;
     --border-color: #0f9d58;
-
-    --footer-bg: #0D1B36; 
-    --footer-text: #E0E0E0; 
-    --footer-link-hover: #FFFFFF; 
+    --footer-bg: #0D1B36;
+    --footer-text: #E0E0E0;
+    --footer-link-hover: #FFFFFF;
 }
 
 body {
-    background-color: var(--background-color);
+    background-color: var(--bg-default);
+}
+
+.section-bg-accent {
+    background-color: var(--bg-accent);
 }
 
 /* Navbar */
+.navbar {
+    background-color: var(--bg-accent) !important;
+}
+
 .btn-green {
     background-color: var(--primary-color);
     color: var(--text-light);

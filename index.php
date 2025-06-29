@@ -5,7 +5,7 @@ include 'db/db_connect.php';
 ?>
 
 <!-- Hero Section -->
-<section class="py-5 hero-section">
+<section class="py-5 hero-section section-bg-accent">
     <div class="container d-flex flex-column flex-lg-row align-items-center">
         <div class="col-lg-6">
             <h1 class="display-5 fw-bold mb-3">Belajar Berkebun Dari Ahlinya</h1>
@@ -92,7 +92,7 @@ include 'db/db_connect.php';
 </section>
 
 <!-- Section Benefit -->
-<section class="py-5">
+<section class="py-5 section-bg-accent">
     <div class="container">
         <h2 class="fw-bold mb-4 text-center">
             Dapatkan Berbagai Benefit

@@ -3,21 +3,49 @@ include 'db/db_connect.php';
 include 'templates/header.php';
 ?>
 
-<section class="container py-5">
-    <div class="row align-items-center">
-        <div class="col-md-6 text-center mb-4 mb-md-0">
-            <img src="assets/img/cewekcourse1.png" alt="Mahasiswa Botany Academy" class="img-fluid" style="max-width: 350px;" />
-        </div>
-        <div class="col-md-6">
-            <h1 class="fw-bold mb-3">Course yang Memberi Hasil Fokus Praktik & Perawatan.</h1>
-            <p class="text-muted mb-4">
-                Full Online dan Dipandu oleh Praktisi Senior. Praktikal, lebih dari sekadar Webinar. Fokus Bantu Kembangkan Skill Anda.
-            </p>
-            <div class="d-flex align-items-center mt-3">
-                <div class="me-3">
-                    <img src="assets/img/oranglulus/Frame 1000003708.png" alt="Alumni" class="img-fluid" style="height: 40px" />
+<section class="py-5 section-bg-accent">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6 text-center mb-4 mb-md-0">
+                <img src="assets/img/cewekcourse1.png" alt="Mahasiswa Botany Academy" class="img-fluid" style="max-width: 350px;" />
+            </div>
+            <div class="col-md-6">
+                <h1 class="fw-bold mb-3">Course yang Memberi Hasil Fokus Praktik & Perawatan.</h1>
+                <p class="text-muted mb-4">
+                    Full Online dan Dipandu oleh Praktisi Senior. Praktikal, lebih dari sekadar Webinar. Fokus Bantu Kembangkan Skill Anda.
+                </p>
+                <div class="d-flex align-items-center mt-3">
+                    <div class="me-3">
+                        <img src="assets/img/oranglulus/Frame 1000003708.png" alt="Alumni" class="img-fluid" style="height: 40px" />
+                    </div>
+                    <span class="text-muted">10 Orang Telah Lulus</span>
                 </div>
-                <span class="text-muted">10 Orang Telah Lulus</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5" id="testimoni">
+    <div class="container text-center" style="max-width: 800px">
+        <h3 class="fw-bold mb-5">Testimoni Alumni Botany</h3>
+        <div class="row justify-content-center g-4">
+            <div class="col-md-4 d-flex justify-content-center">
+                <div class="card border-0 shadow-sm p-1 rounded-4">
+                    <img src="assets/img/course/Background+Border+Shadow.png" alt="Testimoni alumni 1" style="max-width: 200px" />
+                    <a href="#" class="btn btn-success mx-3 my-2 rounded-pill">Baca Cerita</a>
+                </div>
+            </div>
+            <div class="col-md-4 d-flex justify-content-center">
+                <div class="card border-0 shadow-sm p-1 rounded-4">
+                    <img src="assets/img/course/cw1.png" alt="Testimoni alumni 2" style="max-width: 200px" />
+                    <a href="#" class="btn btn-success mx-3 my-2 rounded-pill">Baca Cerita</a>
+                </div>
+            </div>
+            <div class="col-md-4 d-flex justify-content-center">
+                <div class="card border-0 shadow-sm p-1 rounded-4">
+                    <img src="assets/img/course/cw2.png" alt="Testimoni alumni 3" style="max-width: 200px" />
+                    <a href="#" class="btn btn-success mx-3 my-2 rounded-pill">Baca Cerita</a>
+                </div>
             </div>
         </div>
     </div>
@@ -73,33 +101,6 @@ include 'templates/header.php';
         </div>
     </div>
 </section>
-
-<section class="py-5" id="testimoni">
-    <div class="container text-center" style="max-width: 800px">
-        <h3 class="fw-bold mb-5">Testimoni Alumni Botany</h3>
-        <div class="row justify-content-center g-4">
-            <div class="col-md-4 d-flex justify-content-center">
-                <div class="card border-0 shadow-sm p-1 rounded-4">
-                    <img src="assets/img/course/Background+Border+Shadow.png" alt="Testimoni alumni 1" style="max-width: 200px" />
-                    <a href="#" class="btn btn-success mx-3 my-2 rounded-pill">Baca Cerita</a>
-                </div>
-            </div>
-            <div class="col-md-4 d-flex justify-content-center">
-                <div class="card border-0 shadow-sm p-1 rounded-4">
-                    <img src="assets/img/course/cw1.png" alt="Testimoni alumni 2" style="max-width: 200px" />
-                    <a href="#" class="btn btn-success mx-3 my-2 rounded-pill">Baca Cerita</a>
-                </div>
-            </div>
-            <div class="col-md-4 d-flex justify-content-center">
-                <div class="card border-0 shadow-sm p-1 rounded-4">
-                    <img src="assets/img/course/cw2.png" alt="Testimoni alumni 3" style="max-width: 200px" />
-                    <a href="#" class="btn btn-success mx-3 my-2 rounded-pill">Baca Cerita</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
 
 <?php
 // Memuat footer

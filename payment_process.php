@@ -38,13 +38,13 @@ $check_result = $check_stmt->get_result();
 if ($check_result->num_rows > 0) {
     // --- JIKA PENGGUNA SUDAH TERDAFTAR ---
     $pendaftar = $check_result->fetch_assoc();
-    $enroll_id = $pendaftar['id']; // Ambil ID pendaftaran yang sudah ada
+    $enroll_id = $pendaftar['id'];
 } else {
     // --- JIKA INI PENDAFTARAN BARU ---
     $insert_stmt = $conn->prepare("INSERT INTO pendaftar (user_id, course_id) VALUES (?, ?)");
     $insert_stmt->bind_param("ii", $user_id, $course_id);
     $insert_stmt->execute();
-    $enroll_id = $insert_stmt->insert_id; // Ambil ID pendaftaran yang BARU saja dibuat
+    $enroll_id = $insert_stmt->insert_id;
     $insert_stmt->close();
 }
 $check_stmt->close();
@@ -69,11 +69,6 @@ switch ($payment_method) {
         $payment_details['method'] = 'GoPay';
         $payment_details['instructions'] = 'Silakan scan QR Code di bawah ini menggunakan aplikasi Gojek Anda.';
         $payment_details['account_number'] = 'gopay.jpg';
-        break;
-    case 'OVO':
-        $payment_details['method'] = 'OVO';
-        $payment_details['instructions'] = 'Pembayaran akan muncul di aplikasi OVO Anda dalam 1 menit. Silakan buka aplikasi dan selesaikan pembayaran.';
-        $payment_details['account_number'] = $_SESSION['username'];
         break;
 }
 

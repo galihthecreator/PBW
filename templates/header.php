@@ -26,8 +26,8 @@ function getInitials($name) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"> <link rel="stylesheet" href="assets/css/style.css" />
 </head>
-<body>
-    <nav class="navbar navbar-expand-lg bg-white shadow-sm py-3 sticky-top">
+<body class="<?php echo isset($body_class) ? $body_class : ''; ?>">
+    <nav class="navbar navbar-expand-lg shadow-sm py-3 sticky-top">
         <div class="container">
             <a class="navbar-brand" href="index.php">
                 <img src="assets/img/LogoTeks.png" alt="Botany Academy Logo" width="120" />
@@ -44,7 +44,7 @@ function getInitials($name) {
 
                 <div class="d-flex align-items-center">
                     <?php if (isset($_SESSION['user_id'])) : ?>
-                        <a href="#" class="text-dark me-3"><i class="bi bi-cart fs-5"></i></a>
+                        <a href="keranjang.php" class="text-dark me-3"><i class="bi bi-cart fs-5"></i></a>
                         <a href="#" class="text-dark me-4"><i class="bi bi-bell fs-5"></i></a>
                         
                         <div class="dropdown">
@@ -62,7 +62,7 @@ function getInitials($name) {
                                 </li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item" href="dashboard.php">Pembelajaran Saya</a></li>
-                                <li><a class="dropdown-item" href="#">Keranjang Saya</a></li>
+                                <li><a class="dropdown-item" href="keranjang.php">Keranjang Saya</a></li>
                                 <li><a class="dropdown-item" href="#">Notifikasi</a></li>
                                 <li><a class="dropdown-item" href="#">Pengaturan Akun</a></li>
                                 <li><hr class="dropdown-divider"></li>

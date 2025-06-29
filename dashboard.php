@@ -53,6 +53,38 @@ $result = $stmt->get_result();
     <div class="row g-4">
         <?php if ($result->num_rows > 0) : ?>
             <?php while ($row = $result->fetch_assoc()) : ?>
+                <?php
+                // --- LOGIKA BARU UNTUK MENGHITUNG PROGRES ---
+
+                // 1. Dapatkan ID kelas saat ini
+                $course_id_progress = $row['id'];
+
+                // 2. Hitung jumlah TOTAL materi untuk kelas ini
+                $total_materi_stmt = $conn->prepare("SELECT COUNT(*) as total FROM materi WHERE course_id = ?");
+                $total_materi_stmt->bind_param("i", $course_id_progress);
+                $total_materi_stmt->execute();
+                $total_materi = $total_materi_stmt->get_result()->fetch_assoc()['total'];
+                $total_materi_stmt->close();
+
+                // 3. Hitung jumlah materi yang SUDAH SELESAI oleh pengguna untuk kelas ini
+                $completed_materi_stmt = $conn->prepare("
+                    SELECT COUNT(pr.id) as completed 
+                    FROM progress pr
+                    JOIN pendaftar p ON pr.enrollment_id = p.id
+                    WHERE p.user_id = ? AND p.course_id = ?
+                ");
+                $completed_materi_stmt->bind_param("ii", $user_id, $course_id_progress);
+                $completed_materi_stmt->execute();
+                $completed_materi = $completed_materi_stmt->get_result()->fetch_assoc()['completed'];
+                $completed_materi_stmt->close();
+
+                // 4. Hitung persentase progres
+                $progress_percentage = 0; // Default 0
+                if ($total_materi > 0) {
+                    $progress_percentage = round(($completed_materi / $total_materi) * 100);
+                }
+                ?>
+
                 <div class="col-md-6 col-lg-4">
                     <div class="card course-card-dashboard h-100 shadow-sm">
                         <a href="learning.php?course_id=<?php echo $row['id']; ?>">
@@ -63,12 +95,12 @@ $result = $stmt->get_result();
                             <p class="card-text text-muted small">Oleh <?php echo htmlspecialchars($row['author']); ?></p>
                             
                             <div class="progress" style="height: 5px;">
-                                <div class="progress-bar bg-success" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                <div class="progress-bar bg-success" role="progressbar" style="width: <?php echo $progress_percentage; ?>%;" aria-valuenow="<?php echo $progress_percentage; ?>" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
-                            <p class="small text-muted mt-1">0% selesai</p>
+                            <p class="small text-muted mt-1"><?php echo $progress_percentage; ?>% selesai</p>
                         </div>
                         <div class="card-footer bg-white border-0 p-3">
-                             <a href="learning.php?course_id=<?php echo $row['id']; ?>" class="btn btn-success w-100">Mulai Belajar</a>
+                                <a href="learning.php?course_id=<?php echo $row['id']; ?>" class="btn btn-success w-100">Mulai Belajar</a>
                         </div>
                     </div>
                 </div>

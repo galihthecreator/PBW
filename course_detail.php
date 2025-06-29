@@ -97,7 +97,7 @@ $menit = $total_menit % 60;
                         <?php echo ($course['price'] == 0) ? 'Gratis' : 'Rp ' . number_format($course['price'], 0, ',', '.'); ?>
                     </h2>
                     <div class="d-grid gap-2">
-                        <a href="#" class="btn btn-outline-dark">Tambahkan ke keranjang</a>
+                        <a href="cart_process.php?action=add&id=<?php echo $course['id']; ?>" class="btn btn-outline-dark">Tambahkan ke keranjang</a>
                         <a href="checkout.php?course_id=<?php echo $course['id']; ?>" class="btn btn-success btn-lg">Daftar Sekarang</a>
                     </div>
                     <p class="text-center text-muted small my-3">Jaminan uang kembali 30 hari</p>
