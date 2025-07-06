@@ -1,21 +1,23 @@
 <?php
+// File: login.php
+
 session_start();
-include 'db/db_connect.php';
+include '_includes/db_connect.php';
 
 $errors = array();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    // 1. Mengambil data dari formulir
-    $email = mysqli_real_escape_string($conn, $_POST['email']);
-    $password = mysqli_real_escape_string($conn, $_POST['password']);
+    // Mengambil data langsung dari form.
+    $email = $_POST['email'];
+    $password = $_POST['password'];
 
-    // 2. Validasi sederhana
+    // Validasi sederhana
     if (empty($email)) { array_push($errors, "Email tidak boleh kosong"); }
     if (empty($password)) { array_push($errors, "Password tidak boleh kosong"); }
 
     if (count($errors) == 0) {
-        // 3. Cari pengguna di database berdasarkan email
+        // Cari pengguna di database berdasarkan email
         $stmt = $conn->prepare("SELECT id, username, email, password FROM users WHERE email = ?");
         $stmt->bind_param("s", $email);
         $stmt->execute();
@@ -24,31 +26,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($result->num_rows == 1) {
             $user = $result->fetch_assoc();
             
-            // 4. Verifikasi password yang diinput dengan hash di database
+            // Verifikasi password
             if (password_verify($password, $user['password'])) {
-                // Password cocok! Buat session untuk pengguna.
+                // Password cocok! Buat session.
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['username'] = $user['username'];
-
-                // var_dump($_SESSION);
-                // die();
-
+                
                 header('location: index.php');
                 exit();
-            } else {
-                // Password tidak cocok
-                array_push($errors, "Kombinasi email/password salah");
             }
-        } else {
-            // Email tidak ditemukan
-            array_push($errors, "Kombinasi email/password salah");
         }
+        
+        // Jika email tidak ditemukan atau password tidak cocok, beri pesan error yang sama
+        array_push($errors, "Kombinasi email/password salah");
         $stmt->close();
     }
 }
 ?>
 
-<?php include 'templates/header.php';?>
+<?php include '_includes/header.php';?>
 
 <div class="container mt-5 mb-5">
     <div class="row justify-content-center">
@@ -94,4 +90,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 </div>
 
-<?php include 'templates/footer.php';?>
+<?php include '_includes/footer.php';?>

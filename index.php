@@ -1,7 +1,7 @@
 <?php
-include 'templates/header.php';
+include '_includes/header.php';
 // Memuat koneksi database
-include 'db/db_connect.php';
+include '_includes/db_connect.php';
 ?>
 
 <!-- Hero Section -->
@@ -155,6 +155,53 @@ include 'db/db_connect.php';
     </div>
 </section>
 
+<section class="py-5">
+    <div class="container">
+        <h2 class="fw-bold mb-4 text-center">Kelas Unggulan Kami</h2>
+        <div class="row g-4 justify-content-center">
+            <?php
+            // 1. Query untuk mengambil 3 kelas dengan rating tertinggi
+            $sql = "SELECT id, title, short_description, price, thumbnail_image FROM courses ORDER BY rating DESC LIMIT 3";
+            $result = mysqli_query($conn, $sql);
+
+            // 2. Periksa dan tampilkan hasilnya
+            if (mysqli_num_rows($result) > 0) {
+                while ($row = mysqli_fetch_assoc($result)) {
+            ?>
+                    <div class="col-md-6 col-lg-4 d-flex align-items-stretch">
+                        <div class="card shadow-sm w-100">
+                            <a href="course_detail.php?id=<?php echo $row['id']; ?>">
+                                <img src="assets/img/thumbnails/<?php echo htmlspecialchars($row['thumbnail_image']); ?>" class="card-img-top" alt="<?php echo htmlspecialchars($row['title']); ?>" style="height: 200px; object-fit: cover;">
+                            </a>
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title fw-bold">
+                                    <a href="course_detail.php?id=<?php echo $row['id']; ?>" class="text-dark text-decoration-none">
+                                        <?php echo htmlspecialchars($row['title']); ?>
+                                    </a>
+                                </h5>
+                                <p class="card-text flex-grow-1 small text-muted"><?php echo htmlspecialchars($row['short_description']); ?></p>
+                                <div class="mt-auto">
+                                    <p class="card-text fw-bold fs-5">
+                                        <?php echo ($row['price'] == 0) ? '<span class="text-success">Gratis</span>' : 'Rp ' . number_format($row['price'], 0, ',', '.'); ?>
+                                    </p>
+                                    <a href="course_detail.php?id=<?php echo $row['id']; ?>" class="btn btn-dark w-100 mt-2">Lihat Detail</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            <?php
+                } // Akhir dari while loop
+            } else {
+                echo "<p class='text-center'>Belum ada kelas unggulan yang tersedia.</p>";
+            }
+            ?>
+        </div>
+        <div class="text-center mt-5">
+            <a href="courses.php" class="btn btn-success">Lihat Semua Kelas</a>
+        </div>
+    </div>
+</section>
+
 <!-- Section CTA -->
 <section class="bg-dark text-white rounded-4 my-5 mx-3 mx-md-5">
     <div class="container py-5">
@@ -175,5 +222,5 @@ include 'db/db_connect.php';
 
 <?php
 // Memuat footer
-include 'templates/footer.php';
+include '_includes/footer.php';
 ?>

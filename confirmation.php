@@ -1,19 +1,14 @@
 <?php
-// Kita pindahkan include db_connect.php ke sini untuk memastikan $conn tersedia jika dibutuhkan
-include 'db/db_connect.php'; 
-include 'templates/header.php';
+include '_includes/db_connect.php';
+include '_includes/header.php';
 
 // Periksa apakah ada detail pembayaran di sesi.
 if (!isset($_SESSION['payment_details'])) {
     header('Location: index.php');
     exit();
 }
-
 $details = $_SESSION['payment_details'];
-unset($_SESSION['payment_details']);
 
-// Tombol Saya Sudah Membayar
-$payment_checker_url = "payment_checker.php?enroll_id=" . htmlspecialchars($details['enroll_id']);
 ?>
 
 <div class="container my-5">
@@ -41,8 +36,8 @@ $payment_checker_url = "payment_checker.php?enroll_id=" . htmlspecialchars($deta
                         <p class="fs-4 fw-bold"><?php echo 'Rp ' . number_format($details['amount'], 0, ',', '.'); ?></p>
                     </div>
 
-                    <a href="courses.php" class="btn btn-outline-primary mt-4">Lihat Kelas Lainnya</a>
-                    <a href="<?php echo $payment_checker_url; ?>" class="btn btn-primary mt-4">Saya Sudah Membayar</a>
+                    <a href="courses.php" class="btn btn-outline-primary mt-4">Lihat Kelas Lainnya</a>                    
+                    <a href="_actions/payment_checker.php" class="btn btn-primary mt-4">Saya Sudah Membayar</a>
                 </div>
                 <div class="card-footer text-muted small">
                     Pembayaran akan diverifikasi secara otomatis dalam 1x24 jam.
@@ -52,4 +47,4 @@ $payment_checker_url = "payment_checker.php?enroll_id=" . htmlspecialchars($deta
     </div>
 </div>
 
-<?php include 'templates/footer.php'; ?>
+<?php include '_includes/footer.php'; ?>

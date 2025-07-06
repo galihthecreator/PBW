@@ -1,29 +1,28 @@
 <?php
+// File: keranjang.php
+
 $body_class = 'bg-white';
+include '_includes/db_connect.php';
+include '_includes/header.php';
 
-include 'db/db_connect.php';
-include 'templates/header.php';
-
-// Pastikan pengguna sudah login untuk melihat keranjang
+// Pastikan pengguna sudah login
 if (!isset($_SESSION['user_id'])) {
     header('Location: login.php?redirect_url=keranjang.php');
     exit();
 }
 
-// Inisialisasi keranjang jika belum ada
-$cart_items = isset($_SESSION['cart']) ? $_SESSION['cart'] : [];
+// Inisialisasi
+$cart_items = isset($_SESSION['cart']) && is_array($_SESSION['cart']) ? $_SESSION['cart'] : [];
 $courses_in_cart = [];
 $total_price = 0;
 
 if (!empty($cart_items)) {
-    // Buat placeholder untuk query IN (...) sejumlah item di keranjang
     $placeholders = implode(',', array_fill(0, count($cart_items), '?'));
-    
-    // Siapkan tipe data untuk bind_param (satu 'i' untuk setiap item)
     $types = str_repeat('i', count($cart_items));
 
-    // Query untuk mengambil detail semua kelas yang ID-nya ada di dalam keranjang
-    $sql = "SELECT * FROM courses WHERE id IN ($placeholders)";
+    // SARAN 1: Optimasi query, hanya ambil kolom yang diperlukan
+    $sql = "SELECT id, title, author, price, thumbnail_image FROM courses WHERE id IN ($placeholders)";
+    
     $stmt = $conn->prepare($sql);
     $stmt->bind_param($types, ...$cart_items);
     $stmt->execute();
@@ -46,23 +45,25 @@ if (!empty($cart_items)) {
             
             <?php if (!empty($courses_in_cart)): ?>
                 <?php foreach ($courses_in_cart as $item): ?>
-                    <div class="row mb-3">
-                        <div class="col-md-2">
+                    <div class="row mb-3 align-items-center">
+                        <div class="col-3 col-md-2">
                             <img src="assets/img/thumbnails/<?php echo htmlspecialchars($item['thumbnail_image']); ?>" class="img-fluid rounded" alt="<?php echo htmlspecialchars($item['title']); ?>">
                         </div>
-                        <div class="col-md-7">
+                        <div class="col-9 col-md-7">
                             <h5 class="fw-bold mb-1"><?php echo htmlspecialchars($item['title']); ?></h5>
-                            <p class="small text-muted">Oleh <?php echo htmlspecialchars($item['author']); ?></p>
-                            </div>
-                        <div class="col-md-3 text-end">
+                            <p class="small text-muted mb-1">Oleh <?php echo htmlspecialchars($item['author']); ?></p>
+                            <a href="_actions/cart_process.php?action=remove&id=<?php echo $item['id']; ?>" class="small text-danger text-decoration-none">Hapus</a>
+                        </div>
+                        <div class="col-12 col-md-3 text-md-end mt-2 mt-md-0">
                             <p class="fw-bold mb-1"><?php echo 'Rp ' . number_format($item['price'], 0, ',', '.'); ?></p>
-                            <a href="cart_process.php?action=remove&id=<?php echo $item['id']; ?>" class="small text-danger text-decoration-none">Hapus</a>
                         </div>
                     </div>
                     <hr>
                 <?php endforeach; ?>
             <?php else: ?>
-                <div class="alert alert-info">Keranjang belanja Anda kosong.</div>
+                <div class="alert alert-info">
+                    Keranjang belanja Anda kosong. <a href="courses.php">Mulai jelajahi kelas!</a>
+                </div>
             <?php endif; ?>
         </div>
 
@@ -72,7 +73,9 @@ if (!empty($cart_items)) {
                     <h4 class="card-title">Total:</h4>
                     <h2 class="fw-bold my-3"><?php echo 'Rp ' . number_format($total_price, 0, ',', '.'); ?></h2>
                     <div class="d-grid">
-                        <a href="checkout_multiple.php" class="btn btn-success btn-lg">Lanjutkan ke Checkout</a>
+                        <a href="checkout.php" class="btn btn-success btn-lg <?php echo empty($courses_in_cart) ? 'disabled' : ''; ?>">
+                            Lanjutkan ke Checkout
+                        </a>
                     </div>
                 </div>
             </div>
@@ -80,4 +83,4 @@ if (!empty($cart_items)) {
     </div>
 </div>
 
-<?php include 'templates/footer.php'; ?>
+<?php include '_includes/footer.php'; ?>

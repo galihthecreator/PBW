@@ -1,8 +1,8 @@
 <?php
 
-include 'db/db_connect.php';
-include 'templates/header.php';
+include '_includes/db_connect.php';
+include '_includes/header.php';
 
 
-include 'templates/footer.php';
+include '_includes/footer.php';
 ?>

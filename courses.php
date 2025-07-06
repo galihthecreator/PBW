@@ -1,6 +1,6 @@
 <?php
-include 'db/db_connect.php';
-include 'templates/header.php';
+include '_includes/db_connect.php';
+include '_includes/header.php';
 ?>
 
 <section class="py-5 section-bg-accent">
@@ -18,33 +18,7 @@ include 'templates/header.php';
                     <div class="me-3">
                         <img src="assets/img/oranglulus/Frame 1000003708.png" alt="Alumni" class="img-fluid" style="height: 40px" />
                     </div>
-                    <span class="text-muted">10 Orang Telah Lulus</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="py-5" id="testimoni">
-    <div class="container text-center" style="max-width: 800px">
-        <h3 class="fw-bold mb-5">Testimoni Alumni Botany</h3>
-        <div class="row justify-content-center g-4">
-            <div class="col-md-4 d-flex justify-content-center">
-                <div class="card border-0 shadow-sm p-1 rounded-4">
-                    <img src="assets/img/course/Background+Border+Shadow.png" alt="Testimoni alumni 1" style="max-width: 200px" />
-                    <a href="#" class="btn btn-success mx-3 my-2 rounded-pill">Baca Cerita</a>
-                </div>
-            </div>
-            <div class="col-md-4 d-flex justify-content-center">
-                <div class="card border-0 shadow-sm p-1 rounded-4">
-                    <img src="assets/img/course/cw1.png" alt="Testimoni alumni 2" style="max-width: 200px" />
-                    <a href="#" class="btn btn-success mx-3 my-2 rounded-pill">Baca Cerita</a>
-                </div>
-            </div>
-            <div class="col-md-4 d-flex justify-content-center">
-                <div class="card border-0 shadow-sm p-1 rounded-4">
-                    <img src="assets/img/course/cw2.png" alt="Testimoni alumni 3" style="max-width: 200px" />
-                    <a href="#" class="btn btn-success mx-3 my-2 rounded-pill">Baca Cerita</a>
+                    <span class="text-muted">10.000 Orang Telah Lulus</span>
                 </div>
             </div>
         </div>
@@ -56,19 +30,19 @@ include 'templates/header.php';
         <h2 class="fw-bold mb-4 text-center">Jelajahi Semua Kelas Kami</h2>
         <div class="row g-4">
             <?php
-            // 1. Buat Query SQL untuk mengambil SEMUA data kelas
-            $sql = "SELECT id, title, short_description, price, thumbnail_image FROM courses ORDER BY id ASC";
-            $result = mysqli_query($conn, $sql);
+            // PERBAIKAN 2: Menggunakan Prepared Statements & PERBAIKAN 3: Menambahkan 'author'
+            $sql = "SELECT id, title, author, short_description, price, thumbnail_image FROM courses ORDER BY id ASC";
+            $stmt = $conn->prepare($sql);
+            $stmt->execute();
+            $result = $stmt->get_result();
 
-            // 2. Periksa apakah ada data kelas
-            if (mysqli_num_rows($result) > 0) {
-                // 3. Looping untuk menampilkan setiap kelas
-                while ($row = mysqli_fetch_assoc($result)) {
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
             ?>
                     <div class="col-md-6 col-lg-4 d-flex align-items-stretch">
-                        <div class="card shadow-sm w-100">
+                        <div class="card shadow-sm w-100 course-card-dashboard">
                             <a href="course_detail.php?id=<?php echo $row['id']; ?>">
-                                <img src="assets/img/thumbnails/<?php echo htmlspecialchars($row['thumbnail_image']); ?>" class="card-img-top" alt="<?php echo htmlspecialchars($row['title']); ?>" style="height: 200px; object-fit: cover;">
+                                <img src="assets/img/thumbnails/<?php echo htmlspecialchars($row['thumbnail_image']); ?>" class="card-img-top" alt="<?php echo htmlspecialchars($row['title']); ?>">
                             </a>
                             <div class="card-body d-flex flex-column">
                                 <h5 class="card-title fw-bold">
@@ -76,16 +50,11 @@ include 'templates/header.php';
                                         <?php echo htmlspecialchars($row['title']); ?>
                                     </a>
                                 </h5>
+                                <p class="card-text text-muted small mb-2">Oleh <?php echo htmlspecialchars($row['author']); ?></p>
                                 <p class="card-text flex-grow-1 small text-muted"><?php echo htmlspecialchars($row['short_description']); ?></p>
                                 <div class="mt-auto">
                                     <p class="card-text fw-bold fs-5">
-                                        <?php
-                                        if ($row['price'] == 0) {
-                                            echo '<span class="text-success">Gratis</span>';
-                                        } else {
-                                            echo 'Rp ' . number_format($row['price'], 0, ',', '.');
-                                        }
-                                        ?>
+                                        <?php echo ($row['price'] == 0) ? '<span class="text-success">Gratis</span>' : 'Rp ' . number_format($row['price'], 0, ',', '.'); ?>
                                     </p>
                                     <a href="course_detail.php?id=<?php echo $row['id']; ?>" class="btn btn-dark w-100 mt-2">Lihat Detail</a>
                                 </div>
@@ -93,16 +62,20 @@ include 'templates/header.php';
                         </div>
                     </div>
             <?php
-                }
+                } // Akhir while
             } else {
                 echo "<div class='col-12'><p class='text-center'>Saat ini belum ada kelas yang tersedia.</p></div>";
             }
+            $stmt->close(); // Tutup statement
             ?>
         </div>
     </div>
 </section>
 
+<section class="py-5" id="testimoni">
+    </section>
+
 <?php
 // Memuat footer
-include 'templates/footer.php';
+include '_includes/footer.php';
 ?>
