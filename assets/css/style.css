@@ -213,6 +213,42 @@ body {
     border-bottom: 2px solid transparent;
 }
 
+/* Learning */
+.learning-subheader {
+    background-color: var(--text-dark);
+    padding: 0.75rem 1rem;
+    position: sticky;
+    top: 72px; /* Sesuaikan dengan tinggi navbar utama Anda */
+    z-index: 1021;
+}
+
+/* Tampilan Sidebar di Desktop (LG dan lebih besar) */
+@media (min-width: 992px) {
+    .learning-sidebar.offcanvas-lg {
+        /* Reset perilaku offcanvas di desktop */
+        position: -webkit-sticky;
+        position: sticky;
+        top: 136px; /* Jarak dari atas (navbar + subheader) */
+        height: calc(100vh - 136px); /* Tinggi maksimal agar bisa di-scroll */
+        visibility: visible !important; /* Paksa terlihat */
+        transform: none !important;
+        background-color: #f8f9fa !important; /* Warna bg-light */
+    }
+}
+
+/* Styling untuk daftar materi agar lebih rapi */
+.learning-sidebar .list-group-item {
+    border-radius: 0;
+    border-left: 0;
+    border-right: 0;
+}
+
+.learning-sidebar .list-group-item.active {
+    background-color: var(--primary-color-darker);
+    border-color: var(--primary-color-darker);
+    color: white;
+}
+
 /* Footer */
 .footer-dark {
     background-color: var(--footer-bg);
