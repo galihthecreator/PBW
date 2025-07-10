@@ -42,14 +42,37 @@ $current_page = basename($_SERVER['PHP_SELF']);
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
-                    <li class="nav-item"><a class="nav-link <?php echo ($current_page == 'index.php') ? 'active' : ''; ?>" href="index.php">Home</a></li>
-                    <li class="nav-item"><a class="nav-link <?php echo ($current_page == 'courses.php') ? 'active' : ''; ?>" href="courses.php">Course</a></li>
-                    <li class="nav-item"><a class="nav-link <?php echo ($current_page == 'contact.php') ? 'active' : ''; ?>" href="contact.php">Contact Us</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link <?php echo ($current_page == 'index.php') ? 'active' : ''; ?>" href="index.php">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link <?php echo ($current_page == 'courses.php') ? 'active' : ''; ?>" href="courses.php">Course</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link <?php echo ($current_page == 'contact.php') ? 'active' : ''; ?>" href="contact.php">Contact Us</a>
+                    </li>
+
+                    <?php if (isset($_SESSION['user_id'])) : ?>
+                        <li class="nav-item d-lg-none"><hr></li> <li class="nav-item d-lg-none">
+                            <a class="nav-link" href="dashboard.php">Pembelajaran Saya</a>
+                        </li>
+                        <li class="nav-item d-lg-none">
+                            <a class="nav-link" href="keranjang.php">Keranjang Saya</a>
+                        </li>
+                        <li class="nav-item d-lg-none">
+                            <a class="nav-link" href="notifikasi.php">Notifikasi</a>
+                        </li>
+                        <li class="nav-item d-lg-none">
+                            <a class="nav-link" href="pengaturan-akun.php">Pengaturan Akun</a>
+                        </li>
+                        <li class="nav-item d-lg-none">
+                            <a class="nav-link text-danger" href="logout.php">Logout</a>
+                        </li>
+                    <?php endif; ?>
                 </ul>
 
-                <div class="d-flex align-items-center">
-                    <?php if (isset($_SESSION['user_id'])) : ?>
-                        <a href="keranjang.php" class="text-dark me-3"><i class="bi bi-cart fs-5"></i></a> 
+                <div class="d-none d-lg-flex align-items-center"> <?php if (isset($_SESSION['user_id'])) : ?>
+                        <a href="keranjang.php" class="text-dark me-3"><i class="bi bi-cart fs-5"></i></a>
                         <a href="notifikasi.php" class="text-dark me-4"><i class="bi bi-bell fs-5"></i></a>
                         <div class="dropdown">
                             <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -59,9 +82,8 @@ $current_page = basename($_SERVER['PHP_SELF']);
                                 <li><div class="px-3 py-2"><strong class="d-block"><?php echo htmlspecialchars($_SESSION['username']); ?></strong></div></li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item" href="dashboard.php">Pembelajaran Saya</a></li>
-                                <li><a class="dropdown-item" href="keranjang.php">Keranjang Saya</a></li> 
-                                <li><a class="dropdown-item" href="notifikasi.php">Notifikasi</a></li>
-                                <li><a class="dropdown-item" href="pengaturan.php">Pengaturan Akun</a></li>
+                                <li><a class="dropdown-item" href="keranjang.php">Keranjang Saya</a></li>
+                                <li><a class="dropdown-item" href="pengaturan-akun.php">Pengaturan Akun</a></li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item text-danger" href="logout.php">Logout</a></li>
                             </ul>

@@ -7,7 +7,7 @@ include '_includes/db_connect.php';
 <!-- Hero Section -->
 <section class="py-5 hero-section section-bg-accent">
     <div class="container d-flex flex-column flex-lg-row align-items-center">
-        <div class="col-lg-6">
+        <div class="col-lg-6 text-center text-lg-start">
             <h1 class="display-5 fw-bold mb-3">Belajar Berkebun Dari Ahlinya</h1>
             <p class="mb-4">
                 Akses kelas berkebun online dari mana saja dan kapan saja di Botany
@@ -25,7 +25,7 @@ include '_includes/db_connect.php';
 <section id="about-us" class="py-5 bg-white">
     <div class="container">
         <div class="row align-items-center">
-            <div class="col-lg-6 mb-4 mb-lg-0">
+            <div class="col-lg-6 mb-4 mb-lg-0 text-center text-lg-start">
                 <img
                     src="assets/img/Asset2.png"
                     class="img-fluid rounded-4" 
@@ -33,7 +33,7 @@ include '_includes/db_connect.php';
                     width="75%"
                 />
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-6 text-center text-lg-start">
                 <h2 class="fw-bold mb-3">Apa itu Botany Academy?</h2>
                 <p class="mb-4">
                     <strong>Botany Academy adalah platform e-learning yang
@@ -48,7 +48,7 @@ include '_includes/db_connect.php';
                             </div>
                             <div>
                                 <strong>Belajar Fleksibel</strong><br />
-                                Akses materi belajar kapan saja sesuai jadwalmu. Kelas-kelas kami tersedia secara online dengan format video dan artikel yang  bisa kamu pelajari di waktu senggang.
+                                Akses materi belajar kapan saja sesuai jadwalmu.
                             </div>
                         </div>
                     </div>
@@ -59,7 +59,7 @@ include '_includes/db_connect.php';
                             </div>
                             <div>
                                 <strong>Mentor Ahli</strong><br />
-                                Dipandu oleh para praktisi dan ahli berkebun yang berpengalaman, kamu akan mendapatkan ilmu langsung dari sumber terpercaya. Tanyakan apa saja dan dapatkan feedback secara langsung!
+                                Dipandu oleh para praktisi dan ahli berkebun yang berpengalaman.
                             </div>
                         </div>
                     </div>
@@ -70,7 +70,7 @@ include '_includes/db_connect.php';
                             </div>
                             <div>
                                 <strong>Sertifikat Digital</strong><br />
-                                Setiap penyelesaian kelas akan memberimu sertifikat digital resmi dari Botany Academy – cocok untuk portofolio, CV, atau hanya sekadar bentuk apresiasi atas pencapaianmu.
+                                Setiap penyelesaian kelas akan memberimu sertifikat digital resmi.
                             </div>
                         </div>
                     </div>
@@ -81,7 +81,7 @@ include '_includes/db_connect.php';
                             </div>
                             <div>
                                 <strong>Komunitas Aktif</strong><br />
-                                Bergabunglah dengan komunitas pegiat tanaman dari seluruh Indonesia. Diskusi, tanya jawab, berbagi foto tanaman, hingga kolaborasi proyek bersama – semua bisa kamu temukan di sini!
+                                Bergabunglah dengan komunitas pegiat tanaman dari seluruh Indonesia.
                             </div>
                         </div>
                     </div>
